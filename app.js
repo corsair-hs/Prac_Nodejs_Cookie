@@ -1,5 +1,9 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
+
+// cookie-parser 사용하기 위한 등록
+app.use(cookieParser());
 
 app.get('/set-cookie', (req, res) =>{
     let expires = new Date();
@@ -12,9 +16,10 @@ app.get('/set-cookie', (req, res) =>{
 });
 
 app.get('/get-cookie', (req, res) => {
-    const cookie = req.headers.cookie;
-    console.log(cookie);    // name = sparta
-    return res.status(200).json({cookie});
+    // const cookie = req.headers.cookie;
+    const cookies = req.cookies;    // cookie-parser 미들웨어 덕분에 사용가능
+    console.log(cookies);    // name = sparta
+    return res.status(200).json({cookies});
 });
 
 
